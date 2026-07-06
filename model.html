@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Antigravity Hands</title>
+<style>
+  body { margin: 0; background: #000; overflow: hidden; color: white; font-family: Arial; }
+  #video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+  #canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  #info { position: absolute; top: 20px; width: 100%; text-align: center; font-size: 24px; font-weight: bold; }
+  #controls { position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 14px; opacity: 0.7; }
+</style>
+<!-- Mediapipe for hand tracking -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+</head>
+<body>
+<div id="info">Saad Ullah Hand Detector System</div>
+<video id="video" autoplay playsinline></video>
+<canvas id="canvas"></canvas>
+<div id="controls">Press B: Beam ON | Press S: Shield ON | Press Q: Quit</div>
+
+
+<script>
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let beamOn = true;
+let shieldOn = false;
+let handLandmarks = [];
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Setup Mediapipe Hands
+const hands = new Hands({locateFile: (file) => {
+  return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+}});
+hands.setOptions({
+  maxNumHands: 2,
+  modelComplexity: 1,
+  minDetectionConfidence: 0.7,
+  minTrackingConfidence: 0.7
+});
+
+hands.onResults((results) => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  handLandmarks = [];
+  
+  if (results.multiHandLandmarks) {
+    for (const landmarks of results.multiHandLandmarks) {
+      handLandmarks.push(landmarks);
+      drawConnectors(ctx, landmarks, HAND_CONNECTIONS, {color: '#00FF00', lineWidth: 2});
+      drawLandmarks(ctx, landmarks, {color: '#FF0000', lineWidth: 1});
+    }
+  }
+  
+  drawEffects();
+});
+
+function drawEffects() {
+  if (handLandmarks.length === 2 && beamOn) {
+    // Get index finger tips
+    const left = handLandmarks[0][8];
+    const right = handLandmarks[1][8];
+    
+    const x1 = left.x * canvas.width;
+    const y1 = left.y * canvas.height;
+    const x2 = right.x * canvas.width;
+    const y2 = right.y * canvas.height;
+    
+    // Draw multiple glowing beams
+    const colors = ['#FF00FF', '#00FFFF', '#FFFF00', '#FF0000'];
+    colors.forEach((color, i) => {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1 + i*4 - 6);
+      ctx.lineTo(x2, y2 + i*4 - 6);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 4;
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = color;
+      ctx.stroke();
+    });
+  }
+  
+  if (handLandmarks.length === 1 && shieldOn) {
+    const hand = handLandmarks[0][0]; // wrist
+    const x = hand.x * canvas.width;
+    const y = hand.y * canvas.height;
+    
+    // Draw shield circle
+    ctx.beginPath();
+    ctx.arc(x, y, 100, 0, Math.PI * 2);
+    ctx.strokeStyle = '#00FFFF';
+    ctx.lineWidth = 3;
+    ctx.shadowBlur = 30;
+    ctx.shadowColor = '#00FFFF';
+    ctx.stroke();
+  }
+}
+
+// Camera setup
+const camera = new Camera(video, {
+  onFrame: async () => {
+    await hands.send({image: video});
+  },
+  width: 1280,
+  height: 720
+});
+camera.start();
+
+// Keyboard controls
+document.addEventListener('keydown', (e) => {
+  if(e.key.toLowerCase() === 'b') beamOn =!beamOn;
+  if(e.key.toLowerCase() === 's') shieldOn =!shieldOn;
+  if(e.key.toLowerCase() === 'q') window.close();
+});
+</script>
+</body>
+</html>
