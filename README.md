@@ -1,95 +1,66 @@
-✋ Mediapipe-HandFX
-Real-time hand-tracking visual effects powered by MediaPipe and OpenCV — turn your hand movements into interactive on-screen magic.
-�
-￼ ￼ ￼ 
+# ✋ Mediapipe-HandFX
 
+> **Turn your hand movements into real-time interactive canvas magic.**
 
-�
-￼ ￼ ￼ ￼ 
+An interactive web app that maps 21 3D hand-tracking landmarks to visual canvas effects directly inside your browser using **MediaPipe JS** and **HTML5 Canvas**.
 
+<div align="center">
 
-📖 Overview
-Mediapipe-HandFX uses Google's MediaPipe Hands solution to detect and track 21 hand landmarks in real time from a webcam feed, then maps those landmarks to interactive visual effects — think gesture-controlled particle trails, virtual drawing, glowing fingertip effects, and more. Built entirely with Python, OpenCV, and MediaPipe — no heavy game engine required.
-✨ Features
-🖐️ Real-Time Hand Tracking — Detects 21 3D landmarks per hand using MediaPipe
-🎆 Dynamic Visual Effects — Fingertip trails, glow effects, particles, or gesture-triggered animations
-🎯 Gesture Recognition — Trigger different effects based on hand pose/gesture
-🖥️ Live Webcam Feed — Works directly with your default camera, no extra hardware needed
-⚡ Lightweight & Fast — Runs smoothly on CPU, no GPU required
-🔧 Easy to Extend — Simple, modular code structure for adding your own custom effects
-🖥️ Demo
-Add a screen recording or GIF here showing the hand-tracking effects in action.
-Code
-🛠️ Built With
-HTML,CSS and J's — Core language
-OpenCV — Video capture and rendering
-MediaPipe — Hand landmark detection
-NumPy — Numerical operations for effect calculations
-📂 Project Structure
-Plaintext
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![MediaPipe](https://img.shields.io/badge/MediaPipe-0097A7?style=for-the-badge&logo=google&logoColor=white)](https://developers.google.com/mediapipe)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+
+[![GitHub Stars](https://img.shields.io/github/stars/saadullah990123/Mediapipe-HandFX?style=flat-square&color=blue)](https://github.com/saadullah990123/Mediapipe-HandFX/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/saadullah990123/Mediapipe-HandFX?style=flat-square&color=blue)](https://github.com/saadullah990123/Mediapipe-HandFX/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/saadullah990123/Mediapipe-HandFX?style=flat-square&color=blue)](https://github.com/saadullah990123/Mediapipe-HandFX/issues)
+[![License](https://img.shields.io/github/license/saadullah990123/Mediapipe-HandFX?style=flat-square&color=blue)](LICENSE)
+
+</div>
+
+---
+
+## 📖 Overview
+
+**Mediapipe-HandFX** tracks 21 3D hand landmarks in real time through your webcam feed and maps them directly onto an HTML5 `<canvas>` layer. Built entirely with vanilla **HTML5, CSS3, and JavaScript**, it executes locally via WebAssembly without requiring backend compilation or game engines.
+
+---
+
+## ✨ Key Features
+
+| Feature | Description |
+| :--- | :--- |
+| 🖐️ **Landmark Tracking** | Detects 21 3D landmarks per hand at native frame rates |
+| 🎆 **Dynamic FX Engine** | Render fingertip particle trails, glows, and motion graphics |
+| 🎯 **Gesture Detection** | Trigger specific visual effects based on hand poses |
+| ⚡ **Client-Side WASM** | Runs locally in-browser via WebAssembly |
+| 📱 **Cross-Platform** | Fully responsive layout for desktop and mobile browsers |
+
+---
+
+## 🛠️ Built With
+
+* **HTML5** — Document structure, `<video>` webcam stream, and `<canvas>` layer
+* **CSS3** — Custom glassmorphism UI overlays and responsive layout
+* **JavaScript (ES6+)** — Application state, rendering loops, and modular effect handlers
+* **[MediaPipe Hands JS](https://developers.google.com/mediapipe/solutions/vision/hand_landmarker/web_js)** — Computer vision pipeline for landmark detection
+
+---
+
+## 📂 Project Structure
+
+```text
 Mediapipe-HandFX/
-├── index.html            # Entry document (video & canvas elements)
+├── index.html            # Main entry document (video & canvas layers)
 ├── css/
-│   └── style.css         # Styling for canvas overlay, UI controls, and layout
+│   └── style.css         # Styling for UI overlays and responsive viewport
 ├── js/
-│   ├── app.js            # Main entry script (webcam loop & engine runner)
-│   ├── handTracking.js   # MediaPipe Hands JS initialization wrapper
+│   ├── app.js            # Engine initialization and animation loop
+│   ├── handTracking.js   # MediaPipe Hands JS wrapper
 │   ├── effects/
-│   │   ├── trailEffect.js # Particle and trail rendering on Canvas
-│   │   └── glowEffect.js  # Fingertip glow highlight rendering
+│   │   ├── trailEffect.js # Particle trail generation logic
+│   │   └── glowEffect.js  # Fingertip glow rendering logic
 │   └── utils/
-│       └── helpers.js    # Canvas geometry & math utilities
+│       └── helpers.js    # Geometric vector calculations
 └── README.md             # Project documentation
-Code
-ℹ️ Update this tree to match your actual file names and module layout.
-🚀 Getting Started
-Prerequisites
-A working webcam
-pip
-Installation
-Clone the repository
-Bash
-(Recommended) Create a virtual environment
-Bash
-Install dependencies
-Bash
-If there's no requirements.txt yet, at minimum you'll need:
-Bash
-Usage
-Run the main script and allow camera access:
-Bash
-Position your hand in front of the webcam
-Move your fingers to trigger the visual effects
-Press q to quit the application
-🎮 Controls
-Key
-Action
-q
-Quit the application
-s
-Save a screenshot (if implemented)
-c
-Clear the canvas/trail (if implemented)
-ℹ️ Update this table with your actual keybindings.
-🎨 Customization
-You can tweak effect parameters (color, trail length, particle size, sensitivity) directly in the relevant effect module — for example:
-Python
-🗺️ Roadmap
-[ ] Add more gesture-based effect triggers
-[ ] Support multi-hand effects simultaneously
-[ ] Export recorded sessions as video
-[ ] Add a simple effect-selection UI
-🤝 Contributing
-Contributions, issues, and feature requests are welcome!
-Fork the project
-Create your feature branch (git checkout -b feature/AmazingFeature)
-Commit your changes (git commit -m 'Add some AmazingFeature')
-Push to the branch (git push origin feature/AmazingFeature)
-Open a Pull Request
-📄 License
-This project is licensed under the MIT License — see the LICENSE file for details.
-👤 Author
-Saadullah
-GitHub: @saadullah990123
-⭐ Show Your Support
-If you found this project interesting, give it a ⭐ on GitHub!
