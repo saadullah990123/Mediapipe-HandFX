@@ -26,6 +26,20 @@ OpenCV — Video capture and rendering
 MediaPipe — Hand landmark detection
 NumPy — Numerical operations for effect calculations
 📂 Project Structure
+Plaintext
+Mediapipe-HandFX/
+├── index.html            # Entry document (video & canvas elements)
+├── css/
+│   └── style.css         # Styling for canvas overlay, UI controls, and layout
+├── js/
+│   ├── app.js            # Main entry script (webcam loop & engine runner)
+│   ├── handTracking.js   # MediaPipe Hands JS initialization wrapper
+│   ├── effects/
+│   │   ├── trailEffect.js # Particle and trail rendering on Canvas
+│   │   └── glowEffect.js  # Fingertip glow highlight rendering
+│   └── utils/
+│       └── helpers.js    # Canvas geometry & math utilities
+└── README.md             # Project documentation
 Code
 ℹ️ Update this tree to match your actual file names and module layout.
 🚀 Getting Started
