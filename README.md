@@ -64,3 +64,8 @@ Mediapipe-HandFX/
 │   └── utils/
 │       └── helpers.js    # Geometric vector calculations
 └── README.md             # Project documentation
+
+📄 License
+Distributed under the MIT License. See LICENSE for details.
+
+Made with ❤️ by Saadullah
